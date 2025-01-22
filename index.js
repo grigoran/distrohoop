@@ -40,8 +40,6 @@ function initBuffer(){
 
 function updateBuffer(buffer, textLength) {
     const textBound = Math.floor((resolution.width - textLength) / 2);
-    console.log('textBound :>> ', textBound);
-    console.log('textLength :>> ', textLength);
     for (let i = 0; i < resolution.heigth; i++) {
         for (let j = 0; j < resolution.width; j++) {
             if (doStar(100)){
