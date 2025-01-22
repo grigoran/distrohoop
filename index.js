@@ -38,10 +38,15 @@ function initBuffer(){
     return buffer;
 }
 
-function updateBuffer(buffer, textLength) {
+function updateBuffer(buffer, textLength, text) {
     const textBound = Math.floor((resolution.width - textLength) / 2);
     for (let i = 0; i < resolution.heigth; i++) {
         for (let j = 0; j < resolution.width; j++) {
+            
+            if (buffer[i][j] == '' || buffer[i][j].length > 1) {
+                buffer[i][j] = spaceChar;
+            }
+            
             if (doStar(100)){
                 buffer[i][j] = getStar()
             } else if (doStar()) {
@@ -51,7 +56,7 @@ function updateBuffer(buffer, textLength) {
             if (i == Math.floor(resolution.heigth / 2) && j >= textBound && j - textBound < textLength) {
                 const phrazeIndex = j-textBound;
                 if (phrazeIndex == 0) {
-                    buffer[i][j] = `<span id="phrase" style="color: gray;white-space: nowrap;">`;
+                    buffer[i][j] = `<span id="phrase" style="color: gray;white-space: nowrap;">${text}`;
                 } else if (phrazeIndex == textLength - 1) {
                     buffer[i][j] = `</span>`;
                 } else {
@@ -115,9 +120,9 @@ function run() {
     }, 5000);
 
     requestAnimationFrame(function animate() {
-        updateBuffer(buffer, textLength);
+        updateBuffer(buffer, textLength, text);
         updateContent(buffer);
-        document.querySelector('#phrase').innerHTML=text;
+        //document.querySelector('#phrase').innerHTML=text;
         requestAnimationFrame(animate);
     })
 }
